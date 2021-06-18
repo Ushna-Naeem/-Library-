@@ -1,9 +1,23 @@
-# **-Library-**
-#### _An effective library management system._
+# **-Library-**  
+_An effective library management system._
 
-
-## About this Respositry
+## Overview
+-Library-  is management system built by the students of BS Software Engineering as their final sememster project for their course Introduction to Software Engineering at FAST, NUCES. The purpose of this program is to provides the librarians and the library users with a easy interfaced, user friendly managment system to handle the   
+1. Issueing of Books
+2. Updating the book list
+3. Checking avalibility of the books
+4. Returning  of Books
+5. Changing of Usernames and Passwords
+## Installation Requirements
+This program will work on any c++ IDE on Operating system but Windows 10 is suggested.  You should use the following advised IDEs to run the program 
+> - Visual Studio 2012
+> - DEV-C++ 5.11  
+> - Code::Blocks 17.12
 ## Installation
+It is super easy to install the programm. You just have to follow the foollowing steps carefully:  
+> 1. Downlaod each of the **.txt** , **.cpp** and **.h** files in one single folder.
+> 2. Open all of the files collectively in your IDE as a project.
+> 3. Simply Compile and Run the code. :)
 ## FAQs
 1. Why is the function not inputing the txt file?
 > To solve this issue you can try the following two things
