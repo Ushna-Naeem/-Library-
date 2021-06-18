@@ -6,6 +6,7 @@
 ## Installation
 ## FAQs
 ## Maintainers
-Ushna Naeem (BS Software Engineering Student) : 
+Ushna Naeem (BS Software Engineering Student) : https://github.com/Ushna-Naeem
+Syed Ali Raza (BS Software Engineering Student) : 
 ## Contact
 ## Copyright
