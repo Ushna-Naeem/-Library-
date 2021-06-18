@@ -1,11 +1,11 @@
 # **-Library-**
 #### _An effective library management system._
 
-## Overview
-##### This readme
+
 ## About this Respositry
 ## Installation
 ## FAQs
 ## Maintainers
+Ushna Naeem (BS Software Engineering Student) : 
 ## Contact
 ## Copyright
