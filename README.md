@@ -3,11 +3,12 @@ _An effective library management system._
 
 ## Overview
 -Library-  is management system built by the students of BS Software Engineering as their final sememster project for their course Introduction to Software Engineering at FAST, NUCES. The purpose of this program is to provides the librarians and the library users with a easy interfaced, user friendly managment system to handle the   
-1. Issueing of Books
-2. Updating the book list
+1. Issueing of books
+2. Updating the book list of library 
 3. Checking avalibility of the books
-4. Returning  of Books
-5. Changing of Usernames and Passwords
+4. Searching specific book information
+5. Returning  of books
+6. Changing of usernames and passwords of both librarian and users
 ## Installation Requirements
 This program will work on any c++ IDE on Operating system but Windows 10 is suggested.  You should use the following advised IDEs to run the program 
 > - Visual Studio 2012
