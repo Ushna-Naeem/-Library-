@@ -105,4 +105,6 @@ public:
 	void BookInfo();
 	void MemberSearch();
 	void MemberCurrentInfo();
+	void RunLibrarian();
+	void RunMember();
 };
