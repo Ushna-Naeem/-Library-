@@ -2,7 +2,7 @@
 _An effective library management system._
 
 ## Overview
--Library-  is management system built by the students of BS Software Engineering as their final sememster project for their course Introduction to Software Engineering at FAST, NUCES. The purpose of this program is to provides the librarians and the library users with a easy interfaced, user friendly managment system to handle the   
+-Library-  is management system built by the students of BS Software Engineering (Ushna Naeem [20L-1156] & Ali Raza [20L-1260]) as their final sememster project for their course Introduction to Software Engineering at FAST, NUCES. The purpose of this program is to provides the librarians and the library users with a easy interfaced, user friendly managment system to handle the   
 1. Issueing of books
 2. Updating the book list of library 
 3. Checking avalibility of the books
