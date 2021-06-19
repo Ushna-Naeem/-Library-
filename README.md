@@ -25,7 +25,7 @@ It is super easy to install the programm. You just have to follow the foollowing
 > To solve this issue you can try the following two things
 > - Make sure your **.txt** files exist in the same folder where you have put the **.cpp** and **.h** files.
 > - Make sure that the name of opening **.txt** file is the same as you are entering and the file format is **.txt**.
-> - Make sure that the format of your file is correct. For instance in case of Books.txt:  
+> - Make sure that the format of your file is correct. Bellow you can see the format of 2 txt files.  
 > ```
 > Book.txt (Make sure that there is no extra line in between the inputs)
 > 2                                    //(Quantity of books)
