@@ -40,6 +40,18 @@ It is super easy to install the programm. You just have to follow the foollowing
 > Romance                              //(2nd book's genre)  
 > available                            //(2nd book's avalability) 
 > ```
+> ```
+>Members.txt (Make sure that there is no extra line in between the inputs)
+> 2                                    //(Total members)
+> M1                                   //(Member 1 1D)  
+> 090078601                            //(Member 1 password)
+> Ushna Naeem                          //(Member 1 name)  
+> 2 B4 B1                              //(Member 1 issued number of books and their IDs)
+> M2                                   //(Member 2 1D)  
+> 200                                  //(Member 2 password)
+> Khiz Bij                             //(Member 2 name)
+> 1 B3                                 //(Member 2 issued number of books and their IDs)
+> ```
 > You can consult the .txt files in the repositry for the formats of other .txt files. 
 2. Why is the program giving me a _file not found_ error ?
 > Probaly the main reason to why you are getting this error is that your **.cpp** and **.h** files are in seperate folders. Make sure that they are in one folder.  
