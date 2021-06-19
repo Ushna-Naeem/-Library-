@@ -23,6 +23,14 @@ Member::~Member(){
 		delete[] password;
 		password = 0;
 	}
+	if(issuedBooks){
+		for(int i=0; i< noOfIssuedBooks; i++){
+			delete[] issuedBooks[i];
+			issuedBooks[i]=0;
+		}
+		delete[] issuedBooks;
+		issuedBooks=0;
+	}
 }
 
 void Member::InputData(ifstream& inputMembers){
