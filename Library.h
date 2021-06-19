@@ -3,11 +3,12 @@
 #include<fstream>
 #include<stdlib.h>
 #include<conio.h>
+#include <windows.h>
+
 using namespace std;
 
 //This header file defines the Helper class, the Books class, the Library class and the Member class plus their respective functions.
 //The respective functioning of each function is defined in their .cpp files. 
-
 class Helper{
 	//This function contains extra functions which are needed in other functions of other classes
 public:
@@ -16,7 +17,7 @@ public:
 	static bool SearchString(char*, char*);
 };
 class Books{
-	//This class defines all of the attributes of the books in the librar.
+	//This class defines all of the attributes of the books in the library.
 	//It defines the books ID, its name, genre, availability and the author's name.
 	char* ID;
 	char* Name;
@@ -48,7 +49,7 @@ class Member{
 	char* Name;
 	char* password;
 	int noOfIssuedBooks;
-	Books** issuedBooks; //This class has an association with the Book Class
+	Books** issuedBooks; //This calss has an association with the Book class
 public:
 	Member();
 	~Member();
@@ -69,26 +70,27 @@ class Library{
 	//This class defines the attributes of the librarian and give them the access to all of the data of the members and the books so they can be manipulated accordingly. 
 	char* userID;
 	char* password;
-	Member** memberData;	//This class has an association with the Member Class
-	Books** bookRecord;	//This class has an association with the Book Class
+	Member** memberData; //This class has an association with the Member class
+	Books** bookRecord; //This class has an association with the Book class.
 	static int noOfBooks;
 	static int noOfMembers;
 public:
 	Member* CurrentUser;
 	Library();
 	~Library();
-	void LoadData();
-	void InputBookRecord();
+	void LoadData();		
+	void InputBookRecord();	
 	void InputMemberRecord(); 
 	void InputLibrarian();
 	void ChangePassword();
 	void ChangeUsername();
 	void MemberLogin();
-	void librarianLogin();
-	bool Permission(char*, Books*&);
+	bool librarianLogin();
+	bool Permission(char*, Books*&);	
 	void IssueBook();
 	void ReturnBook();
-	void NewMember();
+	void NewMember();	
+	void AddBook();		
 	void RemoveBook();	
 	void SaveData();
 	void EditBook();
