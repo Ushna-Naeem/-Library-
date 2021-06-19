@@ -1,4 +1,4 @@
-3
+2
 M1
 090078601
 Ushna Naeem
@@ -7,7 +7,3 @@ M2
 200
 Khiz Bij
 1 B3
-M3
-300
-Chilly Willy
-0 
