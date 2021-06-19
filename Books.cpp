@@ -1,4 +1,5 @@
 #include "Library.h"
+//This is the cpp for the Books class
 
 Books::Books(){
 	//These are the varaibles used for attributes of Books
@@ -57,7 +58,7 @@ char* Books::GetAvailability(){
 	//This function return the Book's availability
 	return availability;
 }
-void Books::SetAvailability(char*& avail
+void Books::SetAvailability(char*& avail){
 	//This function sets the book's avalibilty with the help oh helper function 
 	availability = Helper::GetStringFromBuffer(avail);
 }
@@ -120,7 +121,7 @@ void Books::ChangeAvailability(){
 		availability = Helper::GetStringFromBuffer("available");
 	}	
 }
-char* Books::GetName
+char* Books::GetName(){
 	//This function sets the Name of the book.
 	return Name;
 }
