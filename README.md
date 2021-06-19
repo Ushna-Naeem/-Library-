@@ -14,6 +14,7 @@ This program will work on any c++ IDE on Operating system but Windows 10 is sugg
 > - Visual Studio 2012
 > - DEV-C++ 5.11  
 > - Code::Blocks 17.12
+Although it is best advised top run it on Visual Studio 2012.
 ## Installation
 It is super easy to install the programm. You just have to follow the foollowing steps carefully:  
 > 1. Downlaod each of the **.txt** , **.cpp** and **.h** files in one single folder.
@@ -28,12 +29,12 @@ It is super easy to install the programm. You just have to follow the foollowing
 > ```
 > Book.txt (Make sure that there is no extra line in between the inputs)
 > 2                                    //(Quantity of books)
-> B1                                   //(1st book's serial number)  
+> B1                                   //(1st book's ID)  
 > The Great Gatsby                     //(1st book's name)  
 > F.Scott Fitzgerald                   //(1st book's author)
 > Tragedy                              //(1st book's genre)  
 > unavailable                          //(1st book's avalability)  
-> B2                                   //(2nd book's serial number)  
+> B2                                   //(2nd book's ID)  
 > Pride and Prejudice                  //(2nd book's name) 
 > Jane Autsen                          //(2nd book's author)
 > Romance                              //(2nd book's genre)  
@@ -41,7 +42,9 @@ It is super easy to install the programm. You just have to follow the foollowing
 > ```
 > You can consult the .txt files in the repositry for the formats of other .txt files. 
 2. Why is the program giving me a _file not found_ error ?
-> Probaly the main reason to why you are getting this error is that your **.cpp** and **.h** files are in seperate folders. Make sure that they are in one folder.    
+> Probaly the main reason to why you are getting this error is that your **.cpp** and **.h** files are in seperate folders. Make sure that they are in one folder.  
+3. The program is not working properly, I am getting alot of errors?
+> This might be because you are running the file on any other IDE except Visula Studio 2012. It is advised to run the program on Visual Studio 2012 Ultimate only. 
 #### If you still face any issue you can contact the provided contacts,  maintainers or @github/support  
 ## Maintainers
 > Ushna Naeem (BS Software Engineering Student) : https://github.com/Ushna-Naeem  
