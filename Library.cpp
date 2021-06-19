@@ -1,19 +1,20 @@
 #include "Library.h"
+HANDLE clr=GetStdHandle(STD_OUTPUT_HANDLE); 
+
 
 int Library::noOfBooks = 0;
 int Library::noOfMembers = 0;
 
 Library::Library(){
-
+	//Library default constructor
 	userID = 0;
 	password = 0;
 	memberData = 0;
 	bookRecord = 0;
 	CurrentUser = 0;
 }
-
 Library::~Library(){
-
+	//Library destructor
 	if(userID){
 		delete[] userID;
 		userID = 0;
@@ -37,16 +38,14 @@ Library::~Library(){
 		bookRecord=0;
 	}
 }
-
 void Library::LoadData(){
-
+	//This is the function that lo9ad data from .txt files for the following 
 	InputLibrarian();
 	InputBookRecord();
 	InputMemberRecord();
 }
-
 void Library::InputLibrarian(){
-
+	//This function inputs the librarian data from the txt file 
 	ifstream inputlibrarian_("Librarian.txt");
 	char temp[20];
 	inputlibrarian_.getline(temp,20);
@@ -54,22 +53,20 @@ void Library::InputLibrarian(){
 	inputlibrarian_.getline(temp,20);
 	password = Helper::GetStringFromBuffer(temp);
 }
-
 void Library::InputBookRecord(){
-
+	//This function inputs the record of the books from .txt file
 	ifstream inputBooks("Books.txt");
 	inputBooks>>noOfBooks;
 	inputBooks.ignore();
 	bookRecord = new Books*[noOfBooks];
-
 	for(int i = 0; i < noOfBooks; i++){
 		bookRecord[i] = new Books;
 		bookRecord[i] -> InputData(inputBooks);		
 	}
-
 }
-
 void Library::MemberSearch(){
+	//This function searches for a member in the list
+	SetConsoleTextAttribute(clr, 10);
 	bool check=true;
 	while(1){
 		check=true;
@@ -92,6 +89,7 @@ void Library::MemberSearch(){
 						return;
 					default:
 						system("CLS");
+						SetConsoleTextAttribute(clr, 4);
 						cout<<"Invalid input. Enter again." <<endl<<endl;
 						break;
 				}
@@ -99,7 +97,9 @@ void Library::MemberSearch(){
 			}
 		}
 		if(check==true){
+			SetConsoleTextAttribute(clr, 4);
 			cout<<"No Result Found\n"<<endl;
+			SetConsoleTextAttribute(clr, 10);
 			cout<<"1) Try Again\n2) Return to menu\n";
 			switch (getch()){
 				case '1':
@@ -110,20 +110,19 @@ void Library::MemberSearch(){
 					return;
 				default:
 					system("CLS");
+					SetConsoleTextAttribute(clr, 4);
 					cout<<"Invalid input. Enter again." <<endl<<endl;
 					break;
 			}
 		}
 	}
 }
-
 void Library::InputMemberRecord() {
-
+	//Inputs the record of member from txt file
 	ifstream inputMembers("Members.txt");
 	inputMembers>>noOfMembers;
 
 	memberData = new Member*[noOfMembers];
-
 	for(int i = 0; i < noOfMembers; i++){
 		memberData[i] = new Member;
 		memberData[i] -> InputData(inputMembers);	
@@ -146,15 +145,17 @@ void Library::InputMemberRecord() {
 	}
 
 }
-
 void Library::ChangePassword(){
+	//This function chnages the password of the user
 	char temp[20];
 	bool check = false;
 	while(check != true){
+		SetConsoleTextAttribute(clr, 10);
 		cout<<"Enter current password: ";
 		cin.getline(temp,20);
 		char* currentPass = Helper::GetStringFromBuffer(temp);
 		if(!Helper::SearchString(currentPass, password)){
+			SetConsoleTextAttribute(clr, 4);
 			cout<<"Incorrect Current Password!!\n"<<endl;
 			check = false;
 		}
@@ -163,30 +164,37 @@ void Library::ChangePassword(){
 			bool check2 = false;
 			while(check2 != true){
 				system("CLS");
+				SetConsoleTextAttribute(clr, 10);
 				cout<<"Enter New Password (Minimum of 8 characters): ";
 				char temp2[20];
 				cin.getline(temp2,20);
 				char* newPass = Helper::GetStringFromBuffer(temp2);
 				if(Helper::StringLenght(newPass) < 8){
+					SetConsoleTextAttribute(clr, 4);
 					cout<<"Invalid Password!!\n"<<endl;
 					check2 = false;
 				}
 				else{
 					check2 = true;
 					if(Helper::SearchString(newPass,password)){
+						SetConsoleTextAttribute(clr, 4);
 						cout<<"Enter a Different Password!!\n"<<endl;
 						check2 = false;
 					}
 					else{
 						check2 = true;
 						password = Helper::GetStringFromBuffer(newPass);
-						cout<<"Password was changed.\n\nPress 0 to return to Menu: ";
+						SetConsoleTextAttribute(clr, 4);
+						cout<<"Password was changed.\n\n";
+						SetConsoleTextAttribute(clr, 10);
+						cout<<"Press 0 to return to Menu: ";
 						switch (getch()){
 							case '0':
 								system("CLS");
 								return;
 							default:
 								system("CLS");
+								SetConsoleTextAttribute(clr, 4);
 								cout<<"Invalid input. Enter again." <<endl<<endl;
 								break;
 						}
@@ -198,14 +206,16 @@ void Library::ChangePassword(){
 	}
 
 }
-
 void Library::ChangeUsername(){
+	//This function changes the username of the user. 
+	SetConsoleTextAttribute(clr, 10);
 	bool check=true;
 	cout<<"Enter New Username: ";
 	char name_[30];
 	cin.getline(name_,30);
 	while(1){
 		if(Helper::SearchString(name_,userID)){
+			SetConsoleTextAttribute(clr, 4);
 			cout<<"Enter a different username(Can't use the previous one): ";
 			cin.getline(name_,30);
 		}
@@ -214,11 +224,13 @@ void Library::ChangeUsername(){
 	}
 	while(1){
 		system("CLS");
+		SetConsoleTextAttribute(clr, 10);
 		cout<<"Enter your password to confirm the change: ";
 		char tempPass[20];
 		cin.getline(tempPass,20);
 		if(Helper::SearchString(tempPass,password)){
 			userID = Helper::GetStringFromBuffer(name_);
+			SetConsoleTextAttribute(clr, 10);
 			cout<<"Username has been changed...Press 0 to return to Menu: ";
 			switch (getch()){
 				case '0':
@@ -226,6 +238,7 @@ void Library::ChangeUsername(){
 					return;
 				default:
 					system("CLS");
+					SetConsoleTextAttribute(clr, 4);
 					cout<<"Invalid input. Enter again." <<endl<<endl;
 					break;
 			}
@@ -234,7 +247,10 @@ void Library::ChangeUsername(){
 		}	
 		else{
 			system("CLS");
-			cout<<"Incorrect Password!!\n\n1) Try Again\n2) Return to Menu\n\n";
+			SetConsoleTextAttribute(clr, 4);
+			cout<<"Incorrect Password!!\n\n";
+			SetConsoleTextAttribute(clr, 10);
+			cout<<"1) Try Again\n2) Return to Menu\n\n";
 			switch (getch()){
 				case '1':
 					system("CLS");
@@ -243,6 +259,7 @@ void Library::ChangeUsername(){
 					return;
 				default:
 					system("CLS");
+					SetConsoleTextAttribute(clr, 4);
 					cout<<"Invalid input. Enter again." <<endl<<endl;
 					break;
 			}
@@ -250,20 +267,21 @@ void Library::ChangeUsername(){
 		}
 	}
 }
-
 void Library::AddBook(){
+	//This function adds a new book to the list
 	char name[30];
 	char id[10];
 	char author[30];
 	char genre[30];
 	bool check = false;
-
+	SetConsoleTextAttribute(clr, 10);
 	while(check != true){
 		cout<<"Enter ID for the Book: ";
 		cin.getline(id,10);
 		for(int i = 0; i < noOfBooks; i++){
 			char* tempId = bookRecord[i] -> GetIDBook();
 			if(Helper::SearchString(tempId,id)){
+				SetConsoleTextAttribute(clr, 4);
 				cout<<"ID already exists!!"<<endl;
 				check = false;
 				break;
@@ -272,6 +290,7 @@ void Library::AddBook(){
 			}
 		}
 	}
+	SetConsoleTextAttribute(clr, 10);
 	cout<<"Title of the Book: ";
 	cin.getline(name,30);
 	cout<<"Author: ";
@@ -292,6 +311,7 @@ void Library::AddBook(){
 	bookRecord[noOfBooks-1] = new Books;
 	bookRecord[noOfBooks-1] -> NewBook(id,name,author,genre);
 	system("CLS");
+	SetConsoleTextAttribute(clr, 10);
 	cout<<"Book was Added in the system.\n\nPress 0 to return to Menu: ";
 	switch (getch()){
 		case '0':
@@ -299,14 +319,16 @@ void Library::AddBook(){
 			return;
 		default:
 			system("CLS");
+			SetConsoleTextAttribute(clr, 4);
 			cout<<"Invalid input. Enter again." <<endl<<endl;
 			break;
 	}
 	system("CLS");
 
 }
-
 void Library::RemoveBook(){
+	//This function removes a book from the library 
+	SetConsoleTextAttribute(clr, 10);
 	bool check_=true;
 	bool check2=true;
 	while (true){
@@ -323,7 +345,9 @@ void Library::RemoveBook(){
 				char* availability_ = bookRecord[i] -> GetAvailability();
 				if(Helper::SearchString(availability_, check)){
 					system("CLS");
+					SetConsoleTextAttribute(clr, 4);
 					cout<<"Book cannot be Removed at the moment!\n";
+					SetConsoleTextAttribute(clr, 10);
 					cout<<"\n1) Try Again\n2) Return to Menu\n";
 					switch (getch()){
 						case '1':
@@ -334,6 +358,7 @@ void Library::RemoveBook(){
 							return;
 						default:
 							system("CLS");
+							SetConsoleTextAttribute(clr, 4);
 							cout<<"Invalid input. Enter again." <<endl<<endl;
 							break;
 					}
@@ -355,6 +380,7 @@ void Library::RemoveBook(){
 							k++;
 						}
 					}
+					SetConsoleTextAttribute(clr, 10);
 					cout<<"Book was removed from system.\n\nPress 0 to return to Menu: ";
 					switch (getch()){
 						case '0':
@@ -362,6 +388,7 @@ void Library::RemoveBook(){
 							return;
 						default:
 							system("CLS");
+							SetConsoleTextAttribute(clr, 4);
 							cout<<"Invalid input. Enter again." <<endl<<endl;
 							break;
 					}
@@ -371,7 +398,9 @@ void Library::RemoveBook(){
 		}
 		if(check_==true){
 			system("CLS");
+			SetConsoleTextAttribute(clr, 4);
 			cout<<"No Book with this ID exists\n"<<endl;
+			SetConsoleTextAttribute(clr, 10);
 			cout<<"\n1) Try Again\n2) Return to Menu\n";
 			switch (getch()){
 				case '1':
@@ -381,6 +410,7 @@ void Library::RemoveBook(){
 					return;
 				default:
 					system("CLS");
+					SetConsoleTextAttribute(clr, 4);
 					cout<<"Invalid input. Enter again." <<endl<<endl;
 					break;
 			}
@@ -388,9 +418,8 @@ void Library::RemoveBook(){
 		}
 	}
 }
-
 bool Library::Permission(char* id_, Books*& newBook){
-
+	//This function returns true if the book is avaiabe and vicevera.
 	char check[10] = "available";
 	for(int i = 0; i < noOfBooks; i++){
 		char* idOfBook = bookRecord[i] -> GetIDBook();
@@ -406,8 +435,9 @@ bool Library::Permission(char* id_, Books*& newBook){
 	}
 	return false;
 }
-
 void Library::MemberLogin(){
+	//This functions logs in the member tyo the program after checking their id and passcode
+	SetConsoleTextAttribute(clr, 10);
 	system("CLS");
 	while(1){
 		cout<<"Enter your ID: ";
@@ -425,25 +455,29 @@ void Library::MemberLogin(){
 					char* pass_ = CurrentUser -> GetPass();
 					if(Helper::SearchString(pass_,password)){
 						system("CLS");
+						SetConsoleTextAttribute(clr, 10);
 						cout<<"Login Successful!!"<<endl;
 						check = true;
 						return;
 					}
 					else{
 						system("CLS");
+						SetConsoleTextAttribute(clr, 4);
 						cout<<"Incorrect Password!! Try Again"<<endl;
 						check = false;
 					}
 				}
 			}
 		}
+		SetConsoleTextAttribute(clr, 4);
 		cout<<"Invalid ID!!\n"<<endl;
 	}
 
 	return;
 }
-
 void Library::IssueBook(){
+	//This functions updates the data of a book once it gets issued
+	SetConsoleTextAttribute(clr, 10);
 	cout<<"Enter Book ID: ";
 	char temp[10];
 	cin.getline(temp,10);
@@ -467,13 +501,16 @@ void Library::IssueBook(){
 				return;
 			default:
 				system("CLS");
+				SetConsoleTextAttribute(clr, 4);
 				cout<<"Invalid input. Enter again." <<endl<<endl;
 				break;
 		}
 	}
 	else{
 		system("CLS");
+		SetConsoleTextAttribute(clr, 4);
 		cout<<"Book Unavailable\n"<<endl;
+		SetConsoleTextAttribute(clr, 10);
 		cout<<"1) Issue different book\n2) Return to Menu\n";
 		switch (getch()){
 			case '1':
@@ -483,17 +520,19 @@ void Library::IssueBook(){
 				return;
 			default:
 				system("CLS");
+				SetConsoleTextAttribute(clr, 4);
 				cout<<"Invalid input. Enter again." <<endl<<endl;
 				break;
 		}
 	}
 }
-
 void Library::ReturnBook(){
+	//This function updates the books information once it gets returned
 	bool check=false;
 	while(1){
 		check=false;
 		system("CLS");
+		SetConsoleTextAttribute(clr, 10);
 		cout<<"Enter Book ID: ";
 		char temp[10];
 		cin.getline(temp,10);
@@ -515,13 +554,16 @@ void Library::ReturnBook(){
 							return;
 						default:
 							system("CLS");
+							SetConsoleTextAttribute(clr, 4);
 							cout<<"Invalid input. Enter again." <<endl<<endl;
 							break;
 					}
 				}
 				else{
 					system("CLS");
-					cout<<"Invalid ID!!\n\n1)Try Again\n2)Return to Menu\n\n";
+					cout<<"Invalid ID!!\n\n";
+					SetConsoleTextAttribute(clr, 10);
+					cout<<"1)Try Again\n2)Return to Menu\n\n";
 					switch (getch()){
 						case '1':
 							system("CLS");
@@ -532,6 +574,7 @@ void Library::ReturnBook(){
 							return;
 						default:
 							system("CLS");
+							SetConsoleTextAttribute(clr, 4);
 							cout<<"Invalid input. Enter again." <<endl<<endl;
 							break;
 					}
@@ -542,10 +585,12 @@ void Library::ReturnBook(){
 		}
 	}
 }
-
-void Library::librarianLogin(){
+bool Library::librarianLogin(){
+	//This function logs in the libraran after checks on id and passcode
 	while(1){
-		cout<<"		Login Page\n";
+		SetConsoleTextAttribute(clr, 3);
+		cout<<"		  Login Page\n\n";
+		SetConsoleTextAttribute(clr, 11);
 		cout<<"Enter your ID: ";
 		char id[25];
 		cin>>id;
@@ -558,18 +603,23 @@ void Library::librarianLogin(){
 				cin.getline(pass,50);
 				if(Helper::SearchString(pass,password)){
 					system("CLS");
+					SetConsoleTextAttribute(clr, 10);
 					cout<<"Login Successful!!"<<endl;
-					return;
+					return true;
 				}
 				else{
 					system("CLS");
+					SetConsoleTextAttribute(clr, 4);
 					cout<<"Incorrect Password!!"<<endl;
 					check = false;
 				}
 			}
 		}
 		system("CLS");
-		cout<<"Incorrect ID!!\n\n1)Try Again\n2)Return to Menu"<<endl;
+		SetConsoleTextAttribute(clr, 4);
+		cout<<"Incorrect ID!!\n\n";
+		SetConsoleTextAttribute(clr, 10);
+		cout<<"1)Try Again\n2)Return to Menu"<<endl;
 		switch (getch()){
 			case '1':
 				system("CLS");
@@ -577,17 +627,18 @@ void Library::librarianLogin(){
 				break;
 			case '2':
 				system("CLS");
-				return;
+				return false;
 			default:
 				system("CLS");
+				SetConsoleTextAttribute(clr, 4);
 				cout<<"Invalid input. Enter again." <<endl<<endl;
 				break;
 		}
 	}
-	return;
+	return false;
 }
-
 void Library::NewMember(){
+	//This function sign ups a new user to the member list
 	system("CLS");
 	Member** temp = 0;
 	temp =new Member*[noOfMembers];
@@ -609,6 +660,7 @@ void Library::NewMember(){
 
 	while(check == false){
 		system("CLS");
+		SetConsoleTextAttribute(clr, 10);
 		cout<<"Set your User ID (For eg M1): ";
 		cin.getline(tempnew,10);
 		for(int i = 0; i < noOfMembers-1; i++){
@@ -619,8 +671,10 @@ void Library::NewMember(){
 		system("CLS");
 		if(check2 == true)
 			check = true;
-		else
+		else{
+			SetConsoleTextAttribute(clr, 4);
 			cout<<"This ID is already taken!! Try Different One..."<<endl;
+		}
 	}
 	system("CLS");
 	check2 = false;
@@ -633,6 +687,7 @@ void Library::NewMember(){
 		newPass = Helper::GetStringFromBuffer(temp2);
 		if(Helper::StringLenght(newPass) < 8){
 			system("CLS");
+			SetConsoleTextAttribute(clr, 4);
 			cout<<"Invalid Password!!"<<endl;
 			check2 = false;
 		}
@@ -642,6 +697,7 @@ void Library::NewMember(){
 		}
 	}
 	system("CLS");
+	SetConsoleTextAttribute(clr, 10);
 	cout<<"Enter your Name: ";
 	char name_[30];
 	cin.getline(name_,30);
@@ -654,13 +710,13 @@ void Library::NewMember(){
 			return;
 		default:
 			system("CLS");
+			SetConsoleTextAttribute(clr, 4);
 			cout<<"Invalid input. Enter again." <<endl<<endl;
 			break;
 	}
 }
-
 void Library::SaveData(){
-
+	//This function saves data of librarian,boooks and members to a txt file
 	ofstream librarian_output("Librarian.txt");
 	librarian_output<<userID<<endl;
 	librarian_output<<password;
@@ -680,8 +736,8 @@ void Library::SaveData(){
 	}
 	 Members_Output.close();
 }
-
 void Library::EditBook(){
+	//This function edits the attributes of the book 
 	bool check_=true;
 	char newID[10];
 	char newName[30];
@@ -692,6 +748,7 @@ void Library::EditBook(){
 		check_=true;
 		bool check = true;
 		system("CLS");
+		SetConsoleTextAttribute(clr, 10);
 		cout<<"Enter the ID of the Book: ";
 		char temp[10];
 		cin.getline(temp,10);
@@ -701,7 +758,7 @@ void Library::EditBook(){
 				check_=false;
 				while(1){
 					system("CLS");
-					cout<<"1) ID\n2) Name\n3) Author Name\n4) Genre\n5) Change Status\n6) Return to Menu\n\n";
+					cout<<"Choose one of the following options: \n1) ID\n2) Name\n3) Author Name\n4) Genre\n5) Change Status\n6) Return to Menu\n\nYour choice: ";
 					switch (getch()){
 						case '1':
 							check = true;
@@ -713,6 +770,7 @@ void Library::EditBook(){
 									char* tempID_ = bookRecord[j] -> GetIDBook();
 									if(Helper::SearchString(newID,tempID_)){
 										system("CLS");
+										SetConsoleTextAttribute(clr,4);
 										cout<<"This ID is already in use"<<endl;
 										check = true;
 										break;
@@ -721,6 +779,7 @@ void Library::EditBook(){
 								check = false;
 								bookRecord[i] -> EditBookID(newID);
 								system("CLS");
+								SetConsoleTextAttribute(clr, 10);
 								cout<<"ID was changed. Press 0 to continue: ";
 								switch (getch()){
 									case '0':
@@ -728,6 +787,7 @@ void Library::EditBook(){
 										return;
 									default:
 										system("CLS");
+										SetConsoleTextAttribute(clr, 4);
 										cout<<"Invalid input. Enter again." <<endl<<endl;
 										break;
 								}
@@ -739,6 +799,7 @@ void Library::EditBook(){
 							cin.getline(newName,30);
 							bookRecord[i] -> EditBookName(newName);
 							system("CLS");
+							SetConsoleTextAttribute(clr, 10);
 							cout<<"Name was changed\n. Press 0 to continue: ";
 							switch (getch()){
 								case '0':
@@ -746,16 +807,19 @@ void Library::EditBook(){
 									return;
 								default:
 									system("CLS");
+									SetConsoleTextAttribute(clr, 4);
 									cout<<"Invalid input. Enter again." <<endl<<endl;
 									break;
 							}
 							break;
 						case '3':
 							system("CLS");
+							SetConsoleTextAttribute(clr, 10);
 							cout<<"Enter New Name for Author: ";
 							cin.getline(newAuthor,25);
 							bookRecord[i] -> EditBookAuthor(newAuthor);
 							system("CLS");
+							SetConsoleTextAttribute(clr, 10);
 							cout<<"Author was changed\n. Press 0 to continue: ";
 							switch (getch()){
 								case '0':
@@ -763,6 +827,7 @@ void Library::EditBook(){
 									return;
 								default:
 									system("CLS");
+									SetConsoleTextAttribute(clr, 4);
 									cout<<"Invalid input. Enter again." <<endl<<endl;
 									break;
 							}
@@ -780,6 +845,7 @@ void Library::EditBook(){
 									return;
 								default:
 									system("CLS");
+									SetConsoleTextAttribute(clr, 4);
 									cout<<"Invalid input. Enter again." <<endl<<endl;
 									break;
 							}
@@ -787,6 +853,7 @@ void Library::EditBook(){
 						case '5':
 							system("CLS");
 							bookRecord[i] -> ChangeAvailability();
+							SetConsoleTextAttribute(clr, 10);
 							cout<<"Status has been Changed!. Press 0 to continue: ";
 							switch (getch()){
 								case '0':
@@ -794,6 +861,7 @@ void Library::EditBook(){
 									return;
 								default:
 									system("CLS");
+									SetConsoleTextAttribute(clr, 4);
 									cout<<"Invalid input. Enter again." <<endl<<endl;
 									break;
 							}
@@ -802,7 +870,7 @@ void Library::EditBook(){
 							system("CLS");
 							return;
 						default:
-							system("CLS");
+							system("CLS");SetConsoleTextAttribute(clr, 4);
 							cout<<"Invalid input. Enter again." <<endl<<endl;
 							break;
 					}
@@ -811,7 +879,9 @@ void Library::EditBook(){
 		}
 		if(check_==true){
 			system("CLS");
+			SetConsoleTextAttribute(clr, 4);
 			cout<<"Invalid ID"<<endl;
+			SetConsoleTextAttribute(clr, 10);
 			cout<<"\n\n1) Try Again\n2)Return to Menu\n";
 			switch (getch()){
 				case '1':
@@ -822,16 +892,18 @@ void Library::EditBook(){
 					return;
 				default:
 					system("CLS");
+					SetConsoleTextAttribute(clr, 4);
 					cout<<"Invalid input. Enter again." <<endl<<endl;
 					break;
 			}
 		}
 	}
 }
-
 void Library::ChangeMemberInfo(){
+	//This functon changes the member information in the file 
 	system("CLS");
-	cout<<"1: Change Name\n2: Change Password";
+	SetConsoleTextAttribute(clr, 10);
+	cout<<"Choose one of the following:\n1: Change the name\n2: Change the password.\nYour choice: ";
 	switch (getch()){
 		case '1':
 			CurrentUser -> ChangeName();
@@ -851,15 +923,17 @@ void Library::ChangeMemberInfo(){
 			return;
 		default:
 			system("CLS");
+			SetConsoleTextAttribute(clr, 4);
 			cout<<"Invalid input. Enter again." <<endl<<endl;
 			break;
 	}
 	return;
 }
-
 void Library::BookInfo(){
+	//This function gets the new members information from the user
 	system("CLS");
 	while(1){
+		SetConsoleTextAttribute(clr, 10);
 		cout<<"Enter Book ID: ";
 		char book[10];
 		cin.getline(book,10);
@@ -874,6 +948,7 @@ void Library::BookInfo(){
 						return;
 					default:
 						system("CLS");
+						SetConsoleTextAttribute(clr, 4);
 						cout<<"Invalid input. Enter again." <<endl<<endl;
 						break;
 				}
@@ -890,13 +965,15 @@ void Library::BookInfo(){
 				return;
 			default:
 				system("CLS");
+				SetConsoleTextAttribute(clr, 4);
 				cout<<"Invalid input. Enter again." <<endl<<endl;
 				break;
 		}
 	}
 }
-
 void Library::ViewBookList(){
+	//This function prints the whole book list 
+	SetConsoleTextAttribute(clr, 10);
 	system("CLS");
 	for(int i=0; i<noOfBooks; i++)
 		bookRecord[i] -> Print();
@@ -907,15 +984,16 @@ void Library::ViewBookList(){
 			return;
 		default:
 			system("CLS");
+			SetConsoleTextAttribute(clr, 4);
 			cout<<"Invalid input. Enter again." <<endl<<endl;
 			break;
 	}
 }
-
 void Library::ViewMembers(){
+	//This function prints the whole member list
 	for(int i=0; i<noOfMembers; i++)
 		memberData[i] -> Print();
-
+	SetConsoleTextAttribute(clr, 10);
 	cout<<"\nPress 0 to return to Menu: ";
 	switch (getch()){
 		case '0':
@@ -923,14 +1001,16 @@ void Library::ViewMembers(){
 			return;
 		default:
 			system("CLS");
+			SetConsoleTextAttribute(clr, 4);
 			cout<<"Invalid input. Enter again." <<endl<<endl;
 			break;
 	}
 }
-
 void Library::MemberCurrentInfo(){
+	//This function shows the member information
 	system("CLS");
 	CurrentUser -> Print();
+	SetConsoleTextAttribute(clr, 10);
 	cout<<"\nPress 0 to return to Menu: ";
 	switch (getch()){
 		case '0':
@@ -938,80 +1018,99 @@ void Library::MemberCurrentInfo(){
 			return;
 		default:
 			system("CLS");
-			cout<<"Invalid input. Enter again." <<endl<<endl;
+			SetConsoleTextAttribute(clr, 4);
+			cout<<"Invalid input! Enter again." <<endl<<endl;
 			break;
 	}
 }
-
 void Library::RunLibrarian(){
-	librarianLogin();
-	system("CLS");
-	while(1){
+	//This function displays the menu of the librarian portal to the user and gives them options to choose from
+	if(librarianLogin()){
 		system("CLS");
-		cout<<"\t\tMenu\n1)  Add Book\n2)  Remove Book\n3)  Change Password\n4)  Change Username\n5)  View Member's List\n6)  View Book List\n7)  Edit Book\n8)  Search Book\n9)  Search Member\n10) Return to Main Menu (Press 0)\n"<<endl;
-		switch (getch()){
-			case '1':
-				system("CLS");
-				AddBook();
-				break;
-			case '2':
-				system("CLS");
-				RemoveBook();
-				break;
-			case '3':
-				system("CLS");
-				ChangePassword();
-				break;
-			case '4':
-				system("CLS");
-				ChangeUsername();
-				break;
-			case '5':
-				system("CLS");
-				ViewMembers();
-				break;
-			case '6':
-				system("CLS");
-				ViewBookList();
-				break;
-			case '7':
-				system("CLS");
-				EditBook();
-				break;
-			case '8':
-				system("CLS");
-				BookInfo();
-				break;
-			case '9':
-				system("CLS");
-				MemberSearch();
-				break;
-			case '0':
-				system("CLS");
-				SaveData();
-				return;
-			default:
-				system("CLS");
-				cout<<"Invalid input. Enter again." <<endl<<endl;
-				break;
+		while(1){
+			system("CLS");
+				SetConsoleTextAttribute(clr, 6);
+			cout<<"----------------------------------------------------------------------\n"<<endl;
+			cout<<"\t\tWelcome to Librarian' Portal !"<<endl;
+			SetConsoleTextAttribute(clr, 12);
+			cout<<endl<<" ~~ Kindly choose one of the following options: "<<endl;
+			cout<<"1)  Add a new book\n2)  Remove  a book\n3)  Change my password\n4)  Change my username\n5)  View Member's List\n6)  View Book List\n7)  Edit a book's information\n8)  Search a book\n9)  Search a member\n10) Return to Main Menu (Press 0)\n"<<endl;
+			SetConsoleTextAttribute(clr, 6);
+			cout<<endl<<"Enter your choice: ";
+			switch (getch()){
+				case '1':
+					system("CLS");
+					AddBook();
+					break;
+				case '2':
+					system("CLS");
+					RemoveBook();
+					break;
+				case '3':
+					system("CLS");
+					ChangePassword();
+					break;
+				case '4':
+					system("CLS");
+					ChangeUsername();
+					break;
+				case '5':
+					system("CLS");
+					ViewMembers();
+					break;
+				case '6':
+					system("CLS");
+					ViewBookList();
+					break;
+				case '7':
+					system("CLS");
+					EditBook();
+					break;
+				case '8':
+					system("CLS");
+					BookInfo();
+					break;
+				case '9':
+					system("CLS");
+					MemberSearch();
+					break;
+				case '0':
+					system("CLS");
+					SaveData();
+					return;
+				default:
+					system("CLS");
+					SetConsoleTextAttribute(clr, 4);
+					cout<<"Invalid input :( Enter again!" <<endl<<endl;
+					break;
+			}
 		}
 	}
 }
-
 void Library::RunMember(){
+	//This function displays the menu of the member portal to the user and gives them options to choose from
 	system("CLS");
 	bool check = true;
 	while(1){
 		system("CLS");
-		cout<<"\t\tWelcome to Members' Portal"<<endl;
-		cout<<"1) Log in\n2) Sign up\n3) Return to Main Menu\n"<<endl;
+		SetConsoleTextAttribute(clr, 6);
+		cout<<"----------------------------------------------------------------------\n"<<endl;
+		cout<<"\t\tWelcome to Members' Portal !"<<endl;
+		SetConsoleTextAttribute(clr, 12);
+		cout<<endl<<" ~~ Kindly choose one of the following options: "<<endl;
+		cout<<"1) Log in to your account.\n2) Sign up to a new account.\n3) Return to the main menu\n"<<endl;
+		SetConsoleTextAttribute(clr, 6);
+		cout<<endl<<"Enter your choice: ";
 		switch (getch()){
 			system("CLS");
 			case '1':
 				MemberLogin();
 				check = true;
 				while(check==true){
-					cout<<"\t\tMenu\n1) Issue Book\n2) Return Book\n3) View your Account Information\n4) Edit your Account Information\n5) Search a Book\n6) View Book List\n7) Log out and Return to Menu\n"<<endl;
+					SetConsoleTextAttribute(clr, 11);
+					cout<<"\t\tMember Menu\n\n~~Kindly choose one of the following options:\n1) Issue a new book\n2) Return a book\n3) View your Account Information\n4) Edit your Account Information\n5) Search for a Book\n6) View the book List\n7) Log out and Return to menu\n";
+					SetConsoleTextAttribute(clr, 6);
+					cout<<endl<<"Enter your choice: ";
 					switch (getch()){
 						case '1':
 							system("CLS");
@@ -1050,7 +1149,8 @@ void Library::RunMember(){
 							break;
 						default:
 							system("CLS");
-							cout<<"Invalid input. Enter again." <<endl<<endl;
+							SetConsoleTextAttribute(clr, 4);
+							cout<<"Invalid input! Enter again." <<endl<<endl;
 							break;
 					}
 				}
@@ -1065,6 +1165,7 @@ void Library::RunMember(){
 				return;
 			default:
 				system("CLS");
+				SetConsoleTextAttribute(clr, 4);
 				cout<<"Invalid input. Enter again." <<endl<<endl;
 				break;
 		}
