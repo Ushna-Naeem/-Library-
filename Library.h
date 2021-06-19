@@ -3,56 +3,27 @@
 #include<fstream>
 #include<stdlib.h>
 #include<conio.h>
-
 using namespace std;
 
-class Books;
+//This header file defines the Helper class, the Books class, the Library class and the Member class plus their respective functions.
+//The respective functioning of each function is defined in their .cpp files. 
 
 class Helper{
-
+	//This function contains extra functions which are needed in other functions of other classes
 public:
-
 	static int StringLenght(char*);
 	static char* GetStringFromBuffer(char*);
 	static bool SearchString(char*, char*);
 };
-
-class Member{
-
-	char* ID;
-	char* Name;
-	char* password;
-	int noOfIssuedBooks;
-	Books** issuedBooks;
-
-public:
-
-	Member();
-	~Member();
-	void InputData(ifstream&);
-	void ChangePassword();
-	void Print();
-	void LoadIssuedBooks(Books**&, int&);
-	char* GetID();
-	char* GetPass();
-	void IssueBook(Books*&);
-	void ReturnBook(Books*&);
-	Member& operator=(const Member& rhs);
-	void NewMember(char*, char*, char*);
-	void SaveMembers(ofstream&);
-	void ChangeName();
-};
-
 class Books{
-
+	//This class defines all of the attributes of the books in the librar.
+	//It defines the books ID, its name, genre, availability and the author's name.
 	char* ID;
 	char* Name;
 	char* Genre;
 	char* Author;
 	char* availability;
-	
 public:
-
 	Books();
 	~Books();
 	void InputData(ifstream&);
@@ -70,33 +41,55 @@ public:
 	void EditBookGenre(char*);
 	void ChangeAvailability();
 };
-
+class Member{
+	//This class defines the attributes of the members who use the library
+	//It defines their names, IDs, Passwords, issued books, their ids and name.
+	char* ID;
+	char* Name;
+	char* password;
+	int noOfIssuedBooks;
+	Books** issuedBooks; //This class has an association with the Book Class
+public:
+	Member();
+	~Member();
+	void InputData(ifstream&);
+	void ChangePassword();
+	void Print();
+	void LoadIssuedBooks(Books**&, int&);
+	char* GetID();
+	char* GetPass();
+	void IssueBook(Books*&);
+	void ReturnBook(Books*&);
+	Member& operator=(const Member& rhs);
+	void NewMember(char*, char*, char*);
+	void SaveMembers(ofstream&);
+	void ChangeName();
+};
 class Library{
+	//This class defines the attributes of the librarian and give them the access to all of the data of the members and the books so they can be manipulated accordingly. 
 	char* userID;
 	char* password;
-	Member** memberData;
-	Books** bookRecord;
+	Member** memberData;	//This class has an association with the Member Class
+	Books** bookRecord;	//This class has an association with the Book Class
 	static int noOfBooks;
 	static int noOfMembers;
-	
 public:
 	Member* CurrentUser;
 	Library();
 	~Library();
-	void LoadData();		//To Load library data includng record of books and members
-	void InputBookRecord();	//Input Books' data from file
-	void InputMemberRecord(); //Input Members' data from fie
+	void LoadData();
+	void InputBookRecord();
+	void InputMemberRecord(); 
 	void InputLibrarian();
 	void ChangePassword();
 	void ChangeUsername();
 	void MemberLogin();
 	void librarianLogin();
-	bool Permission(char*, Books*&);	//Availabiliy of any book
+	bool Permission(char*, Books*&);
 	void IssueBook();
 	void ReturnBook();
-	void NewMember();	//Addition of new member
-	void AddBook();		//Addition of new book
-	void RemoveBook();	//Removal
+	void NewMember();
+	void RemoveBook();	
 	void SaveData();
 	void EditBook();
 	void ViewBookList();
