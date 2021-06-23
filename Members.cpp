@@ -1,5 +1,5 @@
 #include "Library.h"
-HANDLE clr=GetStdHandle(STD_OUTPUT_HANDLE); 
+HANDLE color=GetStdHandle(STD_OUTPUT_HANDLE); 
 //This is the cpp for the Member class
 
 Member::Member(){
@@ -135,7 +135,7 @@ void Member::SaveMembers(ofstream& Members_Output){
 }
 void Member::Print(){
 	//This function prints the name, id of the member and the bo9oks they have issued
-	SetConsoleTextAttribute(clr, 11);
+	SetConsoleTextAttribute(color, 11);
 	cout<<endl<<endl<<"ID: "<<ID<<"\tName: "<<Name<<"\nBooks Issued:\n";
 	if(noOfIssuedBooks == 0)
 		cout<<"None"<<endl<<endl;
@@ -155,13 +155,13 @@ void Member::ChangePassword(){
 	//This function allows the members to change the the password of their account
 	bool check = false;
 	while(check != true){
-		SetConsoleTextAttribute(clr, 10);
+		SetConsoleTextAttribute(color, 10);
 		cout<<"Enter current password: ";
 		char temp[20];
 		cin.getline(temp,20);
 		char* currentPass = Helper::GetStringFromBuffer(temp);
 		if(!Helper::SearchString(currentPass, password)){
-			SetConsoleTextAttribute(clr, 4);
+			SetConsoleTextAttribute(color, 4);
 			cout<<"Incorrect Current Password !"<<endl;
 			check = false;
 		}
@@ -169,20 +169,20 @@ void Member::ChangePassword(){
 			check = true;
 			bool check2 = false;
 			while(check2 != true){
-				SetConsoleTextAttribute(clr, 10);
+				SetConsoleTextAttribute(color, 10);
 				cout<<"Enter New Password (Minimum of 8 characters): ";
 				char temp2[20];
 				cin.getline(temp2,20);
 				char* newPass = Helper::GetStringFromBuffer(temp2);
 				if(Helper::StringLenght(newPass) < 8){
-					SetConsoleTextAttribute(clr, 4);
+					SetConsoleTextAttribute(color, 4);
 					cout<<"Invalid Password !"<<endl;
 					check2 = false;
 				}
 				else{
 					check2 = true;
 					if(Helper::SearchString(newPass,password)){
-						SetConsoleTextAttribute(clr, 4);
+						SetConsoleTextAttribute(color, 4);
 						cout<<"Enter a Different Password !"<<endl;
 						check2 = false;
 					}
@@ -199,7 +199,7 @@ void Member::ChangePassword(){
 void Member::ChangeName(){
 	//This function updates the name of the member
 	char newName[25];
-	SetConsoleTextAttribute(clr, 11);
+	SetConsoleTextAttribute(color, 11);
 	cout<<"Enter New Name: ";
 	cin.getline(newName,25);
 	Name = Helper::GetStringFromBuffer(newName);
